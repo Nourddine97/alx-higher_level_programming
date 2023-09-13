@@ -1,19 +1,21 @@
 #!/usr/bin/python3
-"""
-Module for append_after method.
-"""
+"""Defines a Pascal's Triangle function."""
 
 
-def append_after(filename="", search_string="", new_string=""):
-    '''Method for inserting text after search string.'''
-    lines = []
-    with open(filename, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-        i = 0
-        while i < len(lines):
-            if search_string in lines[i]:
-                lines[i:i + 1] = [lines[i], new_string]
-                i += 1
-            i += 1
-    with open(filename, "w", encoding="utf-8") as f:
-        f.writelines(lines)
+def pascal_triangle(n):
+    """Represent Pascal's Triangle of size n.
+
+    Returns a list of lists of integers representing the triangle.
+    """
+    if n <= 0:
+        return []
+
+    triangles = [[1]]
+    while len(triangles) != n:
+        tri = triangles[-1]
+        tmp = [1]
+        for i in range(len(tri) - 1):
+            tmp.append(tri[i] + tri[i + 1])
+        tmp.append(1)
+        triangles.append(tmp)
+    return triangles
